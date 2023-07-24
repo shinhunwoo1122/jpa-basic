@@ -1,7 +1,6 @@
 package org.example;
 
 import javax.persistence.*;
-import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args){
@@ -13,17 +12,16 @@ public class JpaMain {
 
         try {
 
-            //영속
-            Member member = em.find(Member.class, 150L);
-            member.setName("AAAAA");
+            Member member = new Member();
+            member.setUsername("C");
 
-            em.detach(member);
-
-            System.out.println("====================");
-
+            System.out.println("================");
+            em.persist(member);
+            System.out.println("member.getId() = " + member.getId());
+            System.out.println("================");
             tx.commit();
-
         }catch (Exception e){
+            e.printStackTrace();
             tx.rollback();
         }finally {
             em.close();

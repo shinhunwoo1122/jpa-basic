@@ -3,21 +3,21 @@ package org.example;
 
 import javax.persistence.*;
 
-@Entity
-@SequenceGenerator(
+//@Entity
+@TableGenerator(
         name = "MEMBER_SEQ_GENERATOR",
-        sequenceName = "MEMBER_SEQ", //매핑할 데이터베이스 시퀀스 이름
-        initialValue = 1, allocationSize = 50)
-public class Member {
+        table = "MY_SEQUENCES",
+        pkColumnValue = "MEMBER_SEQ", allocationSize = 1)
+public class Member2 {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ_GENERATOR")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "MEMBER_SEQ_GENERATOR")
     private Long id;
 
     @Column(name = "name", nullable = false)
     private String username;
 
-    public Member(){}
+    public Member2(){}
 
     public Long getId() {
         return id;
