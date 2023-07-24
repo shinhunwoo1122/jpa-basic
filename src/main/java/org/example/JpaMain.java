@@ -12,19 +12,14 @@ public class JpaMain {
         tx.begin();
 
         try {
-            //code 구현
-            //Member findMember = em.find(Member.class, 1L);
-            //findMember.setName("helloJPA");
 
-            List<Member> result = em.createQuery("select m from Member m", Member.class)
-                    .setFirstResult(5)
-                    .setMaxResults(8)
-                    .getResultList();
+            //영속
+            Member member = em.find(Member.class, 150L);
+            member.setName("AAAAA");
 
+            em.detach(member);
 
-            for (Member member : result) {
-                System.out.println("member.name = " + member.getName());
-            }
+            System.out.println("====================");
 
             tx.commit();
 
