@@ -2,9 +2,12 @@ package org.example;
 
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -13,12 +16,28 @@ public class Member {
     @Column(name = "USERNAME")
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name= "TEAM_ID", insertable = false, updatable = false)
+    private Team team;
+
+    @OneToOne
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
+
+    /*@ManyToMany
+    @JoinTable(name = "MEMBER_PRODUCT")
+    private List<Product> products = new ArrayList<>(); 사용하지 않음 실무에서는*/
+
+    @OneToMany(mappedBy = "member")
+    private List<MemberProduct> memberProducts = new ArrayList<>();
+
+
     /*@Column(name = "TEAM_ID")
     private Long teamId;*/
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "TEAM_ID")
-    private Team team;
+    private Team team;*/
 
     public Member(){}
 
@@ -38,18 +57,18 @@ public class Member {
         this.name = name;
     }
 
-    public Team getTeam() {
+   /* public Team getTeam() {
         return team;
-    }
+    }*/
 
     /*public void changeTeam(Team team) {
         this.team = team;
         team.getMembers().add(this);
     }*/
 
-    public void setTeam(Team team) {
+   /* public void setTeam(Team team) {
         this.team = team;
-    }
+    }*/
 
 
 }
