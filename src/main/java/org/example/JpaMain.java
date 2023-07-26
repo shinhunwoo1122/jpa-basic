@@ -73,7 +73,7 @@ public class JpaMain {
 
             /*Movie findMovie = (Movie) em.find(Item.class, movie.getId());
             System.out.println("findMovie = " + findMovie);*/
-            Team team = new Team();
+            /*Team team = new Team();
             team.setName("teamA");
             em.persist(team);
 
@@ -82,30 +82,29 @@ public class JpaMain {
             em.persist(team2);
 
             Member member1 = new Member();
-            member1.setName("member1");
+            member1.setUserName("member1");
             member1.setTeam(team);
             em.persist(member1);
 
             Member member2 = new Member();
-            member2.setName("member2");
+            member2.setUserName("member2");
             member2.setTeam(team2);
-            em.persist(member2);
+            em.persist(member2);*/
 
+            Child child1 = new Child();
+            Child child2 = new Child();
+
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
+
+            em.persist(parent);
 
             em.flush();
             em.clear();
 
-            //Member m = em.find(Member.class, member1.getId());
-
-            /*System.out.println("m.getTeam().getClass() = " + m.getTeam().getClass());
-
-            System.out.println("======================");
-            System.out.println("teamName = " + m.getTeam().getName()); //객체를 가져올시에는 프록시를 가져오고 해당 값을 가져오는것을 터치할시 값을가져옴
-            System.out.println("======================");*/
-
-            List<Member> members = em.createQuery("select m from Member m join fetch m.team", Member.class).getResultList();
-
-
+            Parent findParent = em.find(Parent.class, parent.getId());
+            findParent.getChildList().remove(0);
 
             tx.commit();
         }catch (Exception e){
