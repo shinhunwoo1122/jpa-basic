@@ -3,11 +3,9 @@ package org.example;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-public class Member extends BaseEntity {
+public class Member{
 
     @Id
     @GeneratedValue
@@ -17,30 +15,20 @@ public class Member extends BaseEntity {
     @Column(name = "USERNAME")
     private String userName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
-    private Team team;
+    @Embedded
+    //기간 Period
+    private Period workPeriod;
+    @Embedded
+    //주소
+    private Address homeAddress;
 
-    /*@OneToOne
-    @JoinColumn(name = "LOCKER_ID")
-    private Locker locker;*/
-
-    /*@ManyToMany
-    @JoinTable(name = "MEMBER_PRODUCT")
-    private List<Product> products = new ArrayList<>(); 사용하지 않음 실무에서는*/
-
-    /*@OneToMany(mappedBy = "member")
-    private List<MemberProduct> memberProducts = new ArrayList<>();*/
-
-
-    /*@Column(name = "TEAM_ID")
-    private Long teamId;*/
-
-    /*@ManyToOne
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;*/
-
-    public Member(){}
+    /*@Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="city", column = @Column(name = "WORK_CITY")),
+            @AttributeOverride(name="street", column = @Column(name = "WORK_STREET")),
+            @AttributeOverride(name="zipcode", column = @Column(name = "WORK_ZIPCODE"))
+    })
+    private Address workAddress;*/
 
     public Long getId() {
         return id;
@@ -58,43 +46,19 @@ public class Member extends BaseEntity {
         this.userName = userName;
     }
 
-    public Team getTeam() {
-        return team;
+    public Period getWorkPeriod() {
+        return workPeriod;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setWorkPeriod(Period workPeriod) {
+        this.workPeriod = workPeriod;
     }
 
-    /*public Locker getLocker() {
-        return locker;
+    public Address getHomeAddress() {
+        return homeAddress;
     }
 
-    public void setLocker(Locker locker) {
-        this.locker = locker;
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
     }
-
-    public List<MemberProduct> getMemberProducts() {
-        return memberProducts;
-    }
-
-    public void setMemberProducts(List<MemberProduct> memberProducts) {
-        this.memberProducts = memberProducts;
-    }*/
-
-
-    /* public Team getTeam() {
-        return team;
-    }*/
-
-    /*public void changeTeam(Team team) {
-        this.team = team;
-        team.getMembers().add(this);
-    }*/
-
-   /* public void setTeam(Team team) {
-        this.team = team;
-    }*/
-
-
 }

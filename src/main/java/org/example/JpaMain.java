@@ -14,97 +14,24 @@ public class JpaMain {
         tx.begin();
 
         try {
-            /*//팀 저장
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team);
 
-            //회원 저장
+            Address address = new Address("city", "street", "100000");
+
             Member member = new Member();
-            member.setName("member1");
-            //member.changeTeam(team);
+            member.setUserName("hello1");
+            member.setHomeAddress(address);
+            member.setWorkPeriod(new Period());
             em.persist(member);
 
-            team.addMember(member);
-
-            //team.getMembers().add(member);
-
-            *//*em.flush();
-            em.clear();*//*
-
-            Team findTeam = em.find(Team.class, team.getId());
-            List<Member> members = findTeam.getMembers();
-
-            System.out.println("==============");
-            *//*for (Member m : members) {
-                System.out.println("m.getName() = " + m.getName());
-            }*//*
-
-            System.out.println("findTeam = " + findTeam);
-            
-            System.out.println("==============");*/
-
-            /*Member member = new Member();
-            member.setName("member1");
-
-            em.persist(member);
-
-            Team team = new Team();
-            team.setName("teamA");
-            team.getMembers().add(member);
-
-            em.persist(team);*/
-
-            /*Movie movie = new Movie();
-            movie.setDirector("aaaa");
-            movie.setActor("bbbb");
-            movie.setName("바람과함께사라지다");
-            movie.setPrice(10000);
-
-            em.persist(movie);*/
-            /*Member member = new Member();
-            member.setName("user1");
-            member.setCreatedBy("kim");
-            member.setCreatedDate(LocalDateTime.now());
-            em.persist(member);
-
-            em.flush();
-            em.clear();*/
-
-            /*Movie findMovie = (Movie) em.find(Item.class, movie.getId());
-            System.out.println("findMovie = " + findMovie);*/
-            /*Team team = new Team();
-            team.setName("teamA");
-            em.persist(team);
-
-            Team team2 = new Team();
-            team2.setName("teamB");
-            em.persist(team2);
-
-            Member member1 = new Member();
-            member1.setUserName("member1");
-            member1.setTeam(team);
-            em.persist(member1);
+            /*Address copyAddress = new Address(address.getCity(), address.getStreet(), address.getZipcode());
 
             Member member2 = new Member();
-            member2.setUserName("member2");
-            member2.setTeam(team2);
+            member2.setUserName("hello1");
+            member2.setHomeAddress(copyAddress);
+            member2.setWorkPeriod(new Period());
             em.persist(member2);*/
 
-            Child child1 = new Child();
-            Child child2 = new Child();
 
-            Parent parent = new Parent();
-            parent.addChild(child1);
-            parent.addChild(child2);
-
-            em.persist(parent);
-
-            em.flush();
-            em.clear();
-
-            Parent findParent = em.find(Parent.class, parent.getId());
-            findParent.getChildList().remove(0);
 
             tx.commit();
         }catch (Exception e){
