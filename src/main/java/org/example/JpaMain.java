@@ -3,6 +3,7 @@ package org.example;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args){
@@ -72,31 +73,37 @@ public class JpaMain {
 
             /*Movie findMovie = (Movie) em.find(Item.class, movie.getId());
             System.out.println("findMovie = " + findMovie);*/
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
+
+            Team team2 = new Team();
+            team2.setName("teamB");
+            em.persist(team2);
 
             Member member1 = new Member();
-            member1.setName("hello");
-
+            member1.setName("member1");
+            member1.setTeam(team);
             em.persist(member1);
 
             Member member2 = new Member();
-            member2.setName("hello");
-
+            member2.setName("member2");
+            member2.setTeam(team2);
             em.persist(member2);
+
 
             em.flush();
             em.clear();
 
+            //Member m = em.find(Member.class, member1.getId());
 
-            Member refMember = em.getReference(Member.class, member1.getId());
-            System.out.println("refMember.getClass() = " + refMember.getClass()); //Proxy
-            System.out.println("isLoaded = " + emf.getPersistenceUnitUtil().isLoaded(refMember));
+            /*System.out.println("m.getTeam().getClass() = " + m.getTeam().getClass());
 
-            //System.out.println("refMember = " + refMember.getName());
+            System.out.println("======================");
+            System.out.println("teamName = " + m.getTeam().getName()); //객체를 가져올시에는 프록시를 가져오고 해당 값을 가져오는것을 터치할시 값을가져옴
+            System.out.println("======================");*/
 
-
-
-            Hibernate.initialize(refMember); //강제 초기화
-            System.out.println("isLoaded = " + emf.getPersistenceUnitUtil().isLoaded(refMember));
+            List<Member> members = em.createQuery("select m from Member m join fetch m.team", Member.class).getResultList();
 
 
 
