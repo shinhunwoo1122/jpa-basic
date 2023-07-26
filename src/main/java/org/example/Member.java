@@ -20,16 +20,16 @@ public class Member extends BaseEntity {
     @JoinColumn(name= "TEAM_ID", insertable = false, updatable = false)
     private Team team;
 
-    @OneToOne
+    /*@OneToOne
     @JoinColumn(name = "LOCKER_ID")
-    private Locker locker;
+    private Locker locker;*/
 
     /*@ManyToMany
     @JoinTable(name = "MEMBER_PRODUCT")
     private List<Product> products = new ArrayList<>(); 사용하지 않음 실무에서는*/
 
-    @OneToMany(mappedBy = "member")
-    private List<MemberProduct> memberProducts = new ArrayList<>();
+    /*@OneToMany(mappedBy = "member")
+    private List<MemberProduct> memberProducts = new ArrayList<>();*/
 
 
     /*@Column(name = "TEAM_ID")
@@ -57,7 +57,32 @@ public class Member extends BaseEntity {
         this.name = name;
     }
 
-   /* public Team getTeam() {
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    /*public Locker getLocker() {
+        return locker;
+    }
+
+    public void setLocker(Locker locker) {
+        this.locker = locker;
+    }
+
+    public List<MemberProduct> getMemberProducts() {
+        return memberProducts;
+    }
+
+    public void setMemberProducts(List<MemberProduct> memberProducts) {
+        this.memberProducts = memberProducts;
+    }*/
+
+
+    /* public Team getTeam() {
         return team;
     }*/
 

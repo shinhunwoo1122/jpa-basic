@@ -1,8 +1,8 @@
 package org.example;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args){
@@ -61,17 +61,44 @@ public class JpaMain {
             movie.setPrice(10000);
 
             em.persist(movie);*/
-            Member member = new Member();
+            /*Member member = new Member();
             member.setName("user1");
             member.setCreatedBy("kim");
             member.setCreatedDate(LocalDateTime.now());
             em.persist(member);
 
             em.flush();
-            em.clear();
+            em.clear();*/
 
             /*Movie findMovie = (Movie) em.find(Item.class, movie.getId());
             System.out.println("findMovie = " + findMovie);*/
+
+            Member member1 = new Member();
+            member1.setName("hello");
+
+            em.persist(member1);
+
+            Member member2 = new Member();
+            member2.setName("hello");
+
+            em.persist(member2);
+
+            em.flush();
+            em.clear();
+
+
+            Member refMember = em.getReference(Member.class, member1.getId());
+            System.out.println("refMember.getClass() = " + refMember.getClass()); //Proxy
+            System.out.println("isLoaded = " + emf.getPersistenceUnitUtil().isLoaded(refMember));
+
+            //System.out.println("refMember = " + refMember.getName());
+
+
+
+            Hibernate.initialize(refMember); //강제 초기화
+            System.out.println("isLoaded = " + emf.getPersistenceUnitUtil().isLoaded(refMember));
+
+
 
             tx.commit();
         }catch (Exception e){
@@ -83,4 +110,7 @@ public class JpaMain {
 
         emf.close();
     }
+
+
+
 }
