@@ -16,6 +16,9 @@ public class JpaMain {
 
 
 
+
+
+
         try {
 
             List<Member> members = em.createQuery(
