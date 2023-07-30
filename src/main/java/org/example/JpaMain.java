@@ -15,10 +15,6 @@ public class JpaMain {
         tx.begin();
 
 
-
-
-
-
         try {
 
             List<Member> members = em.createQuery(
